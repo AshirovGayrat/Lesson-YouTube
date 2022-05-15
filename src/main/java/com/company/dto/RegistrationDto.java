@@ -1,0 +1,30 @@
+package com.company.dto;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Setter
+@Getter
+@ToString
+public class RegistrationDto {
+    @NotNull
+    @Size(min = 3, max = 25, message = "name requaried")
+    private String name;
+    @NotNull
+    @Size(min = 3, max = 25, message = "surname requaried")
+    private String surname;
+    @NotNull
+    @Email(message = "email requaried")
+    @Size(min = 13, max = 50, message = "Email requaried")
+    private String email;
+    @NotNull
+    @NotBlank(message = "Password required")
+    @Size(min = 4, max = 20, message = "password requaired")
+    private String password;
+}
