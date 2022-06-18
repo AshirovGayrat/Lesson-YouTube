@@ -1,6 +1,8 @@
 package com.company.service;
 
+import com.company.dtoRequest.ChangePswdDTO;
 import com.company.dto.ProfileDto;
+import com.company.dtoRequest.UpdateProfileDTO;
 import com.company.entity.AttachEntity;
 import com.company.entity.ProfileEntity;
 import com.company.enums.ProfileStatus;
@@ -15,7 +17,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +28,14 @@ public class ProfileService {
     private ProfileRepository profileRepository;
     @Autowired
     private AttachService attachService;
+
+    public Boolean changePswd(ChangePswdDTO dto){
+        ProfileEntity entity=profileRepository.findByPassword(dto.getPassword()).
+                orElseThrow(()-> new ItemNotFoundException("Profile not found"));
+
+        entity.setPassword(dto.getPassword());
+        return true;
+    }
 
     //Create profile
     public ProfileDto createProfile(ProfileDto dto) {
@@ -48,8 +57,8 @@ public class ProfileService {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdDate"));
 
         List<ProfileDto> list = new ArrayList<>();
-        profileRepository.findByStatus(ProfileStatus.ACTIVE.name(), pageable).forEach(courseEntity -> {
-            list.add(toDTO(courseEntity));
+        profileRepository.findAll(pageable).forEach(entity -> {
+            list.add(toDTO(entity));
         });
         if (list.isEmpty()) {
             log.warn(" not found : {}");
@@ -65,26 +74,18 @@ public class ProfileService {
     }
 
     // Update profile
-    public ProfileDto update(Integer id, ProfileDto dto) {
+    public ProfileDto updateProfile(Integer id, UpdateProfileDTO dto) {
 
-        Optional<ProfileEntity> optional = profileRepository.findByEmail(dto.getEmail());
-        if (optional.isPresent()) {
-            log.warn("email alredy used : {}", dto );
-            throw new EmailAlreadyExistsException("This Email already used!");
+        Optional<ProfileEntity> optional = profileRepository.findById(id);
+        if (optional.isEmpty()) {
+            log.warn("Profile not found : {}", dto );
+            throw new ItemNotFoundException("Profile not found!");
         }
 
-        ProfileEntity entity = profileRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("Not Found!"));
-
-        if (entity.getStatus().equals(ProfileStatus.DELETED)) {
-            log.warn("id not found : {}", id );
-            throw new ItemNotFoundException("Not Found!");
-        }
+        ProfileEntity entity = optional.get();
 
         entity.setName(dto.getName());
         entity.setSurname(dto.getSurname());
-        entity.setEmail(dto.getEmail());
-        entity.setPassword(dto.getPassword());
-        entity.setUpdateDate(LocalDateTime.now());
         profileRepository.save(entity);
 
         return toDTO(entity);
@@ -104,22 +105,22 @@ public class ProfileService {
     }
 
     // Update profile photo
-    public boolean updateImage(MultipartFile file, Integer pId) {
+    public Boolean updateImage(MultipartFile file, Integer pId) {
         ProfileEntity profileEntity = get(pId);
 
         AttachEntity attachEntity=new AttachEntity();
 
         if (profileEntity.getAttach() != null) {
-            attachEntity=attachService.updateForProfile(file,profileEntity.getAttach().getId());
+            attachEntity=attachService.updateAttach(file,profileEntity.getAttach().getId());
         } else if (profileEntity.getAttach() == null) {
-            attachEntity=attachService.uploadForProfile(file);
+            attachEntity=attachService.reUploadAttach(file);
         }
         profileEntity.setAttach(attachEntity);
 
         return true;
     }
 
-    public boolean deleteImage(Integer pId) {
+    public Boolean deleteImage(Integer pId) {
         ProfileEntity profileEntity = get(pId);
 
         if (attachService.delete(profileEntity.getAttach().getId())){
@@ -137,9 +138,10 @@ public class ProfileService {
         dto.setEmail(entity.getEmail());
         dto.setPassword(entity.getPassword());
         dto.setUpdateDate(entity.getUpdateDate());
-        dto.setCreateDate(entity.getCreateDate());
-        if (entity.getAttach()==null){
-            dto.setAttachDto(attachService.toDTO(entity.getAttach()));
+        dto.setCreateDate(entity.getCreatedDate());
+        if (entity.getAttach()!=null){
+            dto.getAttachDto().setAttachId(entity.getAttachId());
+            dto.getAttachDto().setUrl(attachService.toOpenURL(entity.getAttachId()));
         }
         return dto;
     }

@@ -1,0 +1,29 @@
+POST http://localhost:8080/video/public/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNjUzMjgzNjAyLCJleHAiOjE2NTM2NDM2MDIsImlzcyI6Im1hemdpIHByb2R1Y3Rpb24iLCJyb2xlIjoiVVNFUiJ9.skivTvMyjph7xg1dv-RO8cAd4D1Vg7RvuXtmzpXbAr4
+
+{
+  "attachId": "c4494c67-842f-4792-b255-ad10636e8995",
+  "categoryId": 4,
+  "description": "Video foydali boladi degan umiddamiz",
+  "key": "vali2",
+  "previewPhotoId": "4dc1b6b2-8e1b-4223-b7a8-c27d7632eac1",
+  "channelId": 4,
+  "type": "VIDEO",
+  "videoName": "naydinay"
+}
+
+###
+GET http://localhost:8080/video/public/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNjUzMTE2OTQ5LCJleHAiOjE2NTM0NzY5NDksImlzcyI6Im1hemdpIHByb2R1Y3Rpb24iLCJyb2xlIjoiVVNFUiJ9.dUZuiWBmzUNkMsflLFasGK7XrVfNoPxVG1_cAtoMWrA
+
+###
+PUT http://localhost:8080/video/public/view/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNjUzMTE2OTQ5LCJleHAiOjE2NTM0NzY5NDksImlzcyI6Im1hemdpIHByb2R1Y3Rpb24iLCJyb2xlIjoiVVNFUiJ9.dUZuiWBmzUNkMsflLFasGK7XrVfNoPxVG1_cAtoMWrA
+
+###
+GET http://localhost:8080/video/public/videos/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNjUzMTE2OTQ5LCJleHAiOjE2NTM0NzY5NDksImlzcyI6Im1hemdpIHByb2R1Y3Rpb24iLCJyb2xlIjoiVVNFUiJ9.dUZuiWBmzUNkMsflLFasGK7XrVfNoPxVG1_cAtoMWrA

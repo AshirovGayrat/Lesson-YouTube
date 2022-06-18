@@ -1,0 +1,15 @@
+
+POST http://localhost:8080/playlist_video/public
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNjUzMTY5Nzk1LCJleHAiOjE2NTM1Mjk3OTUsImlzcyI6Im1hemdpIHByb2R1Y3Rpb24iLCJyb2xlIjoiVVNFUiJ9.OsSQdl6AYO3cOzEsVhW9iQ9M4ubwdxlvVSA9Vnvc2S4
+
+{
+  "orderNum": 5,
+  "playlistId": 4,
+  "videoId": 12
+}
+
+###
+GET http://localhost:8080/playlist_video/public/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNjUzMTY5Nzk1LCJleHAiOjE2NTM1Mjk3OTUsImlzcyI6Im1hemdpIHByb2R1Y3Rpb24iLCJyb2xlIjoiVVNFUiJ9.OsSQdl6AYO3cOzEsVhW9iQ9M4ubwdxlvVSA9Vnvc2S4

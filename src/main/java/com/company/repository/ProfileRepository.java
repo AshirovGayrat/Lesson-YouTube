@@ -23,4 +23,6 @@ public interface ProfileRepository extends JpaRepository<ProfileEntity, Integer>
     @Modifying
     @Query("update ProfileEntity set status = :status where id = :id")
     int updateStatus(@Param("status") ProfileStatus status, @Param("id") Integer id);
+
+    Optional<ProfileEntity> findByPassword(String pswd);
 }

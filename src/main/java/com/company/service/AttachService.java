@@ -2,6 +2,7 @@ package com.company.service;
 
 import com.company.dto.AttachDto;
 import com.company.entity.AttachEntity;
+import com.company.enums.AttachType;
 import com.company.exp.AppBadRequestException;
 import com.company.exp.ItemNotFoundException;
 import com.company.repository.AttachRepository;
@@ -62,7 +63,7 @@ public class AttachService {
         return dto;
     }
 
-    public AttachEntity uploadForProfile(MultipartFile file) {
+    public AttachEntity reUploadAttach(MultipartFile file) {
         String pathFolder = getYmDString(); // 2022/04/23
         File folder = new File(attachFolder + pathFolder);
         if (!folder.exists()) {
@@ -84,11 +85,11 @@ public class AttachService {
         return entity;
     }
 
-    public byte[] open_general(String key) {
+    public byte[] open_general(String id) {
         byte[] data;
         try {
-            AttachEntity entity = get(key);
-            String path = entity.getPath() + "/" + key + "." + entity.getExtension();
+            AttachEntity entity = get(id);
+            String path = entity.getPath() + "/" + id + "." + entity.getExtension();
             Path file = Paths.get(attachFolder + path);
             data = Files.readAllBytes(file);
             return data;
@@ -125,9 +126,9 @@ public class AttachService {
         } else throw new AppBadRequestException("Could not read the file!");
     }
 
-    public AttachEntity updateForProfile(MultipartFile fileDto, String key ){
+    public AttachEntity updateAttach(MultipartFile fileDto, String key ){
         if (delete(key)) {
-            return uploadForProfile(fileDto);
+            return reUploadAttach(fileDto);
         } else throw new AppBadRequestException("Could not read the file!");
     }
 

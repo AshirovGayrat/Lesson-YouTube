@@ -1,0 +1,7 @@
+POST http://localhost:8080/category/adm
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjUzMTEyMjI5LCJleHAiOjE2NTMxMTU4MjksImlzcyI6Im1hemdpIHByb2R1Y3Rpb24iLCJyb2xlIjoiQURNSU4ifQ.zvWJNOQXdud6BkR_YT83_CrnvqIc8dIVqUn2mwhaVRw
+
+{
+  "name": "it"
+}

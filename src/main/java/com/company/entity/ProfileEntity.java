@@ -26,7 +26,10 @@ public class ProfileEntity extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private ProfileStatus status;
 
+    @Column(name = "attach_id")
+    private String attachId;
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "attach_id")
+    @JoinColumn(name = "attach_id", insertable = false, updatable = false)
     private AttachEntity attach;
+
 }

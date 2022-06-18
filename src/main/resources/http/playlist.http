@@ -1,0 +1,18 @@
+POST http://localhost:8080/playlist/public
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNjUzMjgzNjAyLCJleHAiOjE2NTM2NDM2MDIsImlzcyI6Im1hemdpIHByb2R1Y3Rpb24iLCJyb2xlIjoiVVNFUiJ9.skivTvMyjph7xg1dv-RO8cAd4D1Vg7RvuXtmzpXbAr4
+
+{
+  "name": "Prikollar"
+}
+
+###
+POST http://localhost:8080/playlist/public/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNjUzMjgzNjAyLCJleHAiOjE2NTM2NDM2MDIsImlzcyI6Im1hemdpIHByb2R1Y3Rpb24iLCJyb2xlIjoiVVNFUiJ9.skivTvMyjph7xg1dv-RO8cAd4D1Vg7RvuXtmzpXbAr4
+
+{
+  "descripyion": "mazgi prikollar",
+  "name": "prikols",
+  "orderNum": 1
+}

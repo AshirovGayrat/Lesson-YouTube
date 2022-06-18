@@ -4,13 +4,15 @@ import com.company.enums.ProfileRole;
 import com.company.enums.ProfileStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sun.istack.NotNull;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProfileDto  {
 
@@ -37,5 +39,5 @@ public class ProfileDto  {
     private LocalDateTime createDate=LocalDateTime.now();
     private LocalDateTime updateDate;
 
-    private AttachDto attachDto;
+    private AttachSimpleDTO attachDto;
 }
